@@ -1,9 +1,121 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>My Website</title>
-</head>
-<body>
-    <h1>Hello World! Welcome to my GitHub Pages site.</h1>
-</body>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="The personal portfolio of Alistair Turcan, a designer and developer creating thoughtful digital experiences.">
+    <title>Alistair Turcan — Designer &amp; Developer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&amp;family=Manrope:wght@400;500;600&amp;family=Newsreader:ital,opsz,wght@1,6..72,400&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header">
+      <a class="wordmark" href="#top" aria-label="Alistair Turcan, home">AT<span>.</span></a>
+      <nav aria-label="Primary navigation">
+        <a href="#work">Work</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <a class="header-cta" href="mailto:hello@example.com">Let's talk <span aria-hidden="true">↗</span></a>
+    </header>
+
+    <main id="main">
+      <section class="hero" id="top" aria-labelledby="hero-title">
+        <p class="eyebrow"><span></span> Independent designer &amp; developer</p>
+        <h1 id="hero-title">I make digital things<br>feel <em>remarkably</em> simple.</h1>
+        <div class="hero-footer">
+          <p>I turn ambitious ideas into thoughtful brands, websites, and products that people enjoy using.</p>
+          <a class="round-link" href="#work" aria-label="View selected work">Explore<br>my work <span aria-hidden="true">↓</span></a>
+        </div>
+        <div class="scribble" aria-hidden="true">
+          <svg viewBox="0 0 150 70" role="presentation"><path d="M4 55c35 15 94 10 129-20 16-14 15-29-7-30-25-1-33 27-13 43 12 10 25 11 33 11"/></svg>
+        </div>
+      </section>
+
+      <section class="work section" id="work" aria-labelledby="work-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">01 / Selected work</p>
+            <h2 id="work-title">A few things I've made.</h2>
+          </div>
+          <p class="section-note">A mix of identity, product design, and development — all built with purpose.</p>
+        </div>
+
+        <div class="project-grid">
+          <a class="project project-large" href="#contact" aria-label="View Northline project">
+            <div class="project-art art-northline">
+              <span class="art-label">NORTHLINE®</span>
+              <div class="northline-mark">N<span>↗</span></div>
+              <span class="art-caption">MOVE DIFFERENT.</span>
+            </div>
+            <div class="project-meta">
+              <h3>Northline</h3>
+              <p>Brand identity · Digital experience</p>
+              <span aria-hidden="true">↗</span>
+            </div>
+          </a>
+
+          <a class="project" href="#contact" aria-label="View Field Notes project">
+            <div class="project-art art-field">
+              <div class="field-card"><span>FIELD<br>NOTES</span><small>Vol. 04</small></div>
+              <span class="field-side">STORIES FROM OUTSIDE</span>
+            </div>
+            <div class="project-meta">
+              <h3>Field Notes</h3>
+              <p>Editorial · Art direction</p>
+              <span aria-hidden="true">↗</span>
+            </div>
+          </a>
+
+          <a class="project" href="#contact" aria-label="View Common Ground project">
+            <div class="project-art art-common">
+              <div class="common-rings"></div>
+              <strong>COMMON<br><i>GROUND</i></strong>
+              <small>COMMUNITY · CULTURE · COFFEE</small>
+            </div>
+            <div class="project-meta">
+              <h3>Common Ground</h3>
+              <p>Strategy · Brand identity</p>
+              <span aria-hidden="true">↗</span>
+            </div>
+          </a>
+        </div>
+      </section>
+
+      <section class="about section" id="about" aria-labelledby="about-title">
+        <div class="about-intro">
+          <p class="eyebrow">02 / About</p>
+          <h2 id="about-title">Good design starts with <em>curiosity</em> and ends with clarity.</h2>
+        </div>
+        <div class="about-copy">
+          <p>I'm Alistair, an independent creative who works across design and code. I partner with people who care about the details to create work that's useful, expressive, and built to last.</p>
+          <p>When I'm not moving pixels around, you'll find me taking photographs, collecting books, or looking for a good cup of coffee.</p>
+          <a class="text-link" href="mailto:hello@example.com">More about me <span aria-hidden="true">↗</span></a>
+        </div>
+        <ul class="services" aria-label="Services">
+          <li><span>01</span> Brand direction</li>
+          <li><span>02</span> Web design</li>
+          <li><span>03</span> Creative development</li>
+        </ul>
+      </section>
+
+      <section class="contact section" id="contact" aria-labelledby="contact-title">
+        <p class="eyebrow"><span></span> Available for select projects</p>
+        <h2 id="contact-title">Have something in mind?<br><em>Let's make it happen.</em></h2>
+        <a class="contact-link" href="mailto:hello@example.com">hello@example.com <span aria-hidden="true">↗</span></a>
+      </section>
+    </main>
+
+    <footer>
+      <p>© 2026 Alistair Turcan</p>
+      <div class="socials">
+        <a href="https://github.com/" aria-label="GitHub profile">GitHub ↗</a>
+        <a href="https://www.linkedin.com/" aria-label="LinkedIn profile">LinkedIn ↗</a>
+      </div>
+      <a href="#top">Back to top ↑</a>
+    </footer>
+  </body>
 </html>
