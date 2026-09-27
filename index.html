@@ -1,33 +1,425 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Your Name | Home</title>
+  <title>Alistair Turcan | Computational Biology</title>
+  <meta name="description" content="Alistair Turcan: statistical and machine-learning methods for genomics, statistical genetics, and agentic AI for biology.">
+  <meta name="author" content="Alistair Turcan">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="canonical" href="https://alistair-turcan.github.io/">
+  <meta property="og:title" content="Alistair Turcan | Computational Biology">
+  <meta property="og:description" content="Statistical genetics, genomic methods, and agentic AI for biology.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://alistair-turcan.github.io/">
+  <link rel="icon" href="data:,">
+
+  <!--
+    A self-contained, static academic website. No framework or JavaScript needed.
+    Put this file and Alistair_Turcan_CV.pdf in the same directory.
+    CONTENT SOURCE: the supplied Alistair_Turcan_CV.pdf. Publication metadata,
+    contribution marks, and embedded paper URLs are preserved as supplied.
+    The CV PDF is an unchanged copy; review its contact details before publishing.
+  -->
   <style>
-    body {
-      max-width: 720px;
-      margin: 60px auto;
-      padding: 0 24px;
-      font-family: system-ui, sans-serif;
-      line-height: 1.6;
-      color: #222;
-      background: #f8fafc;
+    /* EDIT COLORS OR WIDTH HERE. All styling is contained in this file. */
+    :root {
+      --ink: #252a30;
+      --muted: #606872;
+      --link: #176794;
+      --rule: #e1e5e9;
+      --page: #ffffff;
+      --width: 920px;
     }
-    h1 { line-height: 1.2; }
-    a { color: #0759c7; }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 100px; }
+    body {
+      margin: 0;
+      background: var(--page);
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.65;
+      -webkit-text-size-adjust: 100%;
+      overflow-wrap: break-word;
+    }
+    a { color: var(--link); text-decoration: none; text-underline-offset: 3px; }
+    a:hover { text-decoration: underline; }
+    a:focus-visible {
+      outline: 2px solid var(--link);
+      outline-offset: 5px;
+      border-radius: 2px;
+    }
+    p { margin: 0 0 1em; }
+    strong { font-weight: 650; }
+    .container { width: min(var(--width), calc(100% - 64px)); margin-inline: auto; }
+    .skip-link {
+      position: fixed;
+      top: -80px;
+      left: 16px;
+      padding: 8px 16px;
+      background: var(--page);
+      border: 1px solid var(--link);
+      z-index: 20;
+    }
+    .skip-link:focus { top: 12px; }
+
+    /* The only navigation items are Home, Papers, and CV. */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: var(--page);
+      border-bottom: 1px solid var(--rule);
+    }
+    .header-inner {
+      min-height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+    .site-name { color: var(--ink); font-size: 17px; font-weight: 600; }
+    .site-nav { display: flex; align-items: center; gap: 30px; }
+    .site-nav a { display: inline-block; padding-block: 14px; font-size: 15px; }
+
+    /* HOME: no positions, education, or news sections. */
+    .home { padding: 54px 0 40px; }
+    h1, h2 { font-family: Georgia, "Times New Roman", serif; font-weight: 400; }
+    h1 { margin: 0 0 6px; font-size: clamp(34px, 5vw, 44px); line-height: 1.15; letter-spacing: -0.7px; }
+    .affiliation { color: var(--muted); margin: 0 0 12px; font-size: 16px; }
+    .profile-links { display: flex; flex-wrap: wrap; gap: 7px 18px; margin: 0 0 28px; font-size: 15px; }
+    .intro { max-width: 850px; }
+    .intro p { margin-bottom: 14px; }
+    .research-heading { margin: 26px 0 12px; font-size: 17px; font-weight: 650; }
+    .research-topics { margin: 0; }
+    .research-topic { margin-top: 11px; }
+    .research-topics dt { display: inline; font-weight: 650; }
+    .research-topics dd { display: inline; margin: 0; }
+    .portrait { width: 164px; height: 184px; object-fit: cover; float: right; margin: 0 0 20px 32px; border-radius: 3px; }
+    .home::after { content: ""; display: block; clear: both; }
+
+    /* PAPERS: ordinary HTML lists; duplicate a <li> to add a paper. */
+    .papers { border-top: 1px solid var(--rule); padding: 33px 0 26px; }
+    h2 { font-size: 30px; line-height: 1.25; margin: 0 0 12px; letter-spacing: -0.3px; }
+    .section-heading { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; }
+    .section-heading > a { font-size: 14px; white-space: nowrap; }
+    .contribution-note { color: var(--muted); font-size: 14px; margin-bottom: 27px; }
+    .paper-group + .paper-group { margin-top: 38px; }
+    .paper-group h3 { font-size: 18px; font-weight: 650; margin: 0 0 21px; }
+    .publication-list { padding-left: 23px; margin: 0; }
+    .publication { padding-left: 5px; margin: 0 0 25px; }
+    .publication::marker { color: var(--muted); font-size: 14px; }
+    .publication p { margin: 0 0 3px; }
+    .paper-title { font-weight: 600; line-height: 1.5; }
+    .paper-link { font-size: 14px; font-weight: 400; white-space: nowrap; }
+    .paper-authors { font-size: 15px; line-height: 1.55; }
+    .paper-meta { font-size: 15px; line-height: 1.55; }
+    .paper-status { color: var(--muted); }
+    .paper-note { color: var(--muted); font-size: 14px; line-height: 1.55; max-width: 830px; }
+    sup { font-size: 0.7em; line-height: 0; vertical-align: super; }
+
+    /* CV: the top navigation opens the PDF directly in a new tab. */
+    .cv { border-top: 1px solid var(--rule); padding: 29px 0 34px; }
+    .cv h2 { font-size: 27px; }
+    .cv p { margin-bottom: 0; }
+    .download-link { font-size: 14px; margin-left: 15px; }
+    .site-footer { border-top: 1px solid var(--rule); padding: 21px 0 30px; color: var(--muted); font-size: 13px; }
+    .footer-inner { display: flex; justify-content: space-between; gap: 20px; }
+
+    @media (max-width: 600px) {
+      html { scroll-padding-top: 86px; }
+      .container { width: calc(100% - 36px); }
+      .header-inner { min-height: 62px; gap: 14px; }
+      .site-name { font-size: 15px; }
+      .site-nav { gap: 19px; }
+      .site-nav a { font-size: 14px; }
+      .home { padding: 36px 0 32px; }
+      .profile-links { gap: 7px 14px; margin-bottom: 24px; }
+      .affiliation { font-size: 15px; }
+      .papers { padding-top: 28px; }
+      .section-heading { align-items: center; }
+      .section-heading > a { font-size: 13px; }
+      .publication { padding-left: 2px; margin-bottom: 24px; }
+      .portrait { float: none; display: block; margin: 0 0 23px; width: 145px; height: 163px; }
+      .footer-inner { flex-wrap: wrap; gap: 4px 16px; }
+    }
+    @media (max-width: 360px) {
+      .site-nav { gap: 14px; }
+      .site-name { font-size: 14px; }
+      .section-heading { display: block; }
+      .section-heading > a { display: inline-block; margin-bottom: 10px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+    }
+    @media print {
+      .site-header, .skip-link, .section-heading > a, .site-footer, .download-link { display: none; }
+      .container { width: 100%; }
+      body { font-size: 11pt; }
+      .home { padding-top: 0; }
+      a { color: inherit; }
+      .publication { break-inside: avoid; }
+      .paper-group h3, h2 { break-after: avoid; }
+    }
   </style>
 </head>
 <body>
-  <main>
-    <h1>Hello, I'm Your Name 👋</h1>
-    <p>Welcome to my website!</p>
+  <a class="skip-link" href="#main">Skip to content</a>
 
-    <h2>About me</h2>
-    <p>I enjoy building things and learning new skills.</p>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="site-name" href="#home">Alistair Turcan</a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a href="#home">Home</a>
+        <a href="#papers">Papers</a>
+        <a href="Alistair_Turcan_CV.pdf" target="_blank" rel="noopener" aria-label="CV (PDF, opens in a new tab)">CV</a>
+      </nav>
+    </div>
+  </header>
 
-    <h2>Projects</h2>
-    <p>My first project is coming soon.</p>
+  <main id="main" class="container">
+    <!-- ==================== HOME: EDIT BIO AND LINKS HERE ==================== -->
+    <section id="home" class="home" aria-labelledby="name">
+      <!-- OPTIONAL PHOTO: upload headshot.jpg beside index.html, then uncomment:
+      <img class="portrait" src="headshot.jpg" alt="Alistair Turcan" width="164" height="184">
+      -->
+      <h1 id="name">Alistair Turcan</h1>
+      <p class="affiliation">Computational Biology · Carnegie Mellon University</p>
+      <div class="profile-links" aria-label="Contact and profile links">
+        <a href="mailto:aturcan@cs.cmu.edu">aturcan@cs.cmu.edu</a>
+        <a href="https://scholar.google.com/citations?user=I1E6LycAAAAJ">[Google Scholar]</a>
+        <a href="https://alistair-turcan.github.io/">[Website]</a>
+        <a href="Alistair_Turcan_CV.pdf" target="_blank" rel="noopener" aria-label="CV (PDF, opens in a new tab)">[CV]</a>
+        <!-- Add additional verified profile links here, such as your GitHub or ORCID. -->
+      </div>
+
+      <div class="intro">
+        <p>I develop statistical and machine-learning methods for large-scale genomic data, with a focus on connecting genetic variation to disease mechanisms at cellular resolution.</p>
+        <p>I then build agentic AI systems that automate key parts of this process, such as method development, code optimization, and benchmark design.</p>
+      </div>
+
+      <h2 class="research-heading">Research interests</h2>
+      <dl class="research-topics">
+        <div class="research-topic">
+          <dt>Statistical genetics.</dt>
+          <dd>Genetic architecture of diseases and complex traits; functional interpretation of GWAS variants; linking variants to target genes and cell types.</dd>
+        </div>
+        <div class="research-topic">
+          <dt>Agentic AI for biology.</dt>
+          <dd>AutoResearch; biomedical agents; AI code optimization.</dd>
+        </div>
+      </dl>
+    </section>
+
+    <!-- ==================== PAPERS: EDIT PUBLICATIONS HERE =================== -->
+    <section id="papers" class="papers" aria-labelledby="papers-title">
+      <div class="section-heading">
+        <h2 id="papers-title">Papers</h2>
+        <a href="https://scholar.google.com/citations?user=I1E6LycAAAAJ">Google Scholar ↗</a>
+      </div>
+      <p class="contribution-note"><span>* Equal contribution.</span> <span>† Co-senior authors.</span></p>
+
+      <div class="paper-group">
+        <h3>Key-author publications</h3>
+        <ol class="publication-list">
+          <!-- Paper 1: edit this entire <li> to update this entry. -->
+          <li class="publication" id="paper-01">
+            <p class="paper-title">Conditional polygenic enrichment distinguishes causal from tagging disease-critical cell populations in single-cell RNA-seq.
+              <a class="paper-link" href="https://doi.org/10.64898/2026.08.20.26360914" aria-label="Read paper: Conditional polygenic enrichment distinguishes causal from tagging disease-critical cell populations in single-cell RNA-seq">[paper]</a>
+            </p>
+            <p class="paper-authors"><strong>Alistair Turcan</strong>, Kangcheng Hou, Kevin Z. Lin, Andreas Pfenning, Saori Sakaue, Martin Jinye Zhang.</p>
+            <p class="paper-meta"><em>medRxiv</em>, 2026. <span class="paper-status">Under review at Nature Genetics.</span></p>
+            <p class="paper-note">Related abstract awarded ASHG 2024 Reviewers’ Choice (Top 10%); related research awarded a $150,000 Center for Machine Learning and Health fellowship.</p>
+          </li>
+
+          <!-- Paper 2: edit this entire <li> to update this entry. -->
+          <li class="publication" id="paper-02">
+            <p class="paper-title">Towards automated development of computational biology methods.
+              <!-- No public paper link is listed in the CV. Add one here when available. -->
+            </p>
+            <p class="paper-authors"><strong>Alistair Turcan</strong>, Elizabeth Dorans, Kangcheng Hou, Jane Siwek, Jishnu Das, Maria Chikina, Luca Pinello, Alkes Price, Lei Li, Kexin Huang, Martin Jinye Zhang.</p>
+            <p class="paper-meta"><em>In preparation</em>.</p>
+            <p class="paper-note">Related abstract awarded ASHG 2026 Reviewers’ Choice (Top 10%). Currently deployed on Biomni Lab, used by 100+ researchers and several top pharma companies.</p>
+          </li>
+
+          <!-- Paper 3: edit this entire <li> to update this entry. -->
+          <li class="publication" id="paper-03">
+            <p class="paper-title">Recovering cell-type specific variation in RNA-seq data.
+              <!-- No public paper link is listed in the CV. Add one here when available. -->
+            </p>
+            <p class="paper-authors">Martin Jinye Zhang<sup>*</sup>, Kangcheng Hou<sup>*</sup>, <strong>Alistair Turcan</strong><sup>*</sup>, Alkes Price.</p>
+            <p class="paper-meta"><em>In preparation</em>.</p>
+          </li>
+
+          <!-- Paper 4: edit this entire <li> to update this entry. -->
+          <li class="publication" id="paper-04">
+            <p class="paper-title">TusoAI: Agentic Optimization for Scientific Methods.
+              <a class="paper-link" href="https://openreview.net/forum?id=0M6BfcAVMW" aria-label="Read paper: TusoAI: Agentic Optimization for Scientific Methods">[paper]</a>
+            </p>
+            <p class="paper-authors"><strong>Alistair Turcan</strong>, Kexin Huang, Lei Li, Martin Jinye Zhang.</p>
+            <p class="paper-meta"><em>ICLR</em>, 2026.</p>
+          </li>
+
+          <!-- Paper 5: edit this entire <li> to update this entry. -->
+          <li class="publication" id="paper-05">
+            <p class="paper-title">SpatialEpiBench: Benchmarking Spatial Information and Epidemic Priors in Forecasting.
+              <a class="paper-link" href="https://arxiv.org/abs/2605.06530" aria-label="Read paper: SpatialEpiBench: Benchmarking Spatial Information and Epidemic Priors in Forecasting">[paper]</a>
+            </p>
+            <p class="paper-authors">Ruiqi Lyu<sup>*</sup>, <strong>Alistair Turcan</strong><sup>*</sup>, Bryan Wilder.</p>
+            <p class="paper-meta"><em>NeurIPS</em>, 2026.</p>
+          </li>
+
+          <!-- Paper 6: edit this entire <li> to update this entry. -->
+          <li class="publication" id="paper-06">
+            <p class="paper-title">Improving constraint-based discovery with robust propagation and reliable LLM priors.
+              <a class="paper-link" href="https://arxiv.org/abs/2509.23570" aria-label="Read paper: Improving constraint-based discovery with robust propagation and reliable LLM priors">[paper]</a>
+            </p>
+            <p class="paper-authors">Ruiqi Lyu<sup>*</sup>, <strong>Alistair Turcan</strong><sup>*</sup>, Martin Jinye Zhang<sup>†</sup>, Bryan Wilder<sup>†</sup>.</p>
+            <p class="paper-meta"><em>NeurIPS</em>, 2026.</p>
+          </li>
+
+          <!-- Paper 7: edit this entire <li> to update this entry. -->
+          <li class="publication" id="paper-07">
+            <p class="paper-title">Explaining Concept Shift with Interpretable Feature Attribution.
+              <a class="paper-link" href="https://arxiv.org/abs/2505.20634" aria-label="Read paper: Explaining Concept Shift with Interpretable Feature Attribution">[paper]</a>
+            </p>
+            <p class="paper-authors">Ruiqi Lyu, <strong>Alistair Turcan</strong>, Bryan Wilder.</p>
+            <p class="paper-meta"><em>ICML</em>, 2026.</p>
+          </li>
+
+          <!-- Paper 8: edit this entire <li> to update this entry. -->
+          <li class="publication" id="paper-08">
+            <p class="paper-title">Population-Robust Feature Selection via Generalized Welfare Optimization.
+              <a class="paper-link" href="https://arxiv.org/abs/2608.02887" aria-label="Read paper: Population-Robust Feature Selection via Generalized Welfare Optimization">[paper]</a>
+            </p>
+            <p class="paper-authors">Ruiqi Lyu, <strong>Alistair Turcan</strong>, Bryan Wilder.</p>
+            <p class="paper-meta"><em>arXiv</em>, 2026.</p>
+          </li>
+
+          <!-- Paper 9: edit this entire <li> to update this entry. -->
+          <li class="publication" id="paper-09">
+            <p class="paper-title">Combining digital data streams and epidemic networks for real time outbreak detection.
+              <a class="paper-link" href="https://arxiv.org/abs/2511.07163" aria-label="Read paper: Combining digital data streams and epidemic networks for real time outbreak detection">[paper]</a>
+            </p>
+            <p class="paper-authors">Ruiqi Lyu, <strong>Alistair Turcan</strong>, Bryan Wilder.</p>
+            <p class="paper-meta"><em>arXiv</em>, 2025. <span class="paper-status">Under revision at PNAS.</span></p>
+          </li>
+
+          <!-- Paper 10: edit this entire <li> to update this entry. -->
+          <li class="publication" id="paper-10">
+            <p class="paper-title">Integrative Detection of Genome-wide Translation using iRibo.
+              <a class="paper-link" href="https://doi.org/10.1016/j.xpro.2023.102826" aria-label="Read paper: Integrative Detection of Genome-wide Translation using iRibo">[paper]</a>
+            </p>
+            <p class="paper-authors"><strong>Alistair Turcan</strong>, Jiwon Lee, Aaron Wacholder, Anne-Ruxandra Carvunis.</p>
+            <p class="paper-meta"><em>STAR Protocols</em>, 2024.</p>
+          </li>
+
+          <!-- Paper 11: edit this entire <li> to update this entry. -->
+          <li class="publication" id="paper-11">
+            <p class="paper-title">Exhaustive In-silico Simulation of Single Amino Acid Insertion and Deletion Mutations.
+              <a class="paper-link" href="https://doi.org/10.1109/BIBM55620.2022.9995279" aria-label="Read paper: Exhaustive In-silico Simulation of Single Amino Acid Insertion and Deletion Mutations">[paper]</a>
+            </p>
+            <p class="paper-authors"><strong>Alistair Turcan</strong>, Grant Chou, Lilu Martin, Theo Miller, Dylan Thompson, Filip Jagodzinski.</p>
+            <p class="paper-meta"><em>IEEE BIBM</em>, 2022.</p>
+          </li>
+
+          <!-- Paper 12: edit this entire <li> to update this entry. -->
+          <li class="publication" id="paper-12">
+            <p class="paper-title">Elucidating the Structural Impacts of Protein InDels.
+              <a class="paper-link" href="https://doi.org/10.3390/biom12101435" aria-label="Read paper: Elucidating the Structural Impacts of Protein InDels">[paper]</a>
+            </p>
+            <p class="paper-authors">Muneeba Jilani, <strong>Alistair Turcan</strong>, Nurit Haspel, Filip Jagodzinski.</p>
+            <p class="paper-meta"><em>Biomolecules</em>, 2022.</p>
+          </li>
+
+          <!-- Paper 13: edit this entire <li> to update this entry. -->
+          <li class="publication" id="paper-13">
+            <p class="paper-title">Assessing the Effects of Amino Acid Insertion and Deletion Mutations.
+              <a class="paper-link" href="https://doi.org/10.1109/BIBM52615.2021.9669484" aria-label="Read paper: Assessing the Effects of Amino Acid Insertion and Deletion Mutations">[paper]</a>
+            </p>
+            <p class="paper-authors">Muneeba Jilani, <strong>Alistair Turcan</strong>, Nurit Haspel, Filip Jagodzinski.</p>
+            <p class="paper-meta"><em>IEEE BIBM</em>, 2021.</p>
+          </li>
+
+          <!-- Paper 14: edit this entire <li> to update this entry. -->
+          <li class="publication" id="paper-14">
+            <p class="paper-title">CGRAP: A Web Server for Coarse-Grained Rigidity Analysis of Proteins.
+              <a class="paper-link" href="https://doi.org/10.3390/sym13122401" aria-label="Read paper: CGRAP: A Web Server for Coarse-Grained Rigidity Analysis of Proteins">[paper]</a>
+            </p>
+            <p class="paper-authors"><strong>Alistair Turcan</strong>, Anna Zivkovic, Dylan Thompson, Lorraine Wong, Lauren Johnson, Filip Jagodzinski.</p>
+            <p class="paper-meta"><em>Symmetry</em>, 2021.</p>
+          </li>
+        </ol>
+      </div>
+
+      <div class="paper-group">
+        <h3>Other publications</h3>
+        <ol class="publication-list">
+          <!-- Paper 15: edit this entire <li> to update this entry. -->
+          <li class="publication" id="paper-15">
+            <p class="paper-title">SkillFoundry: Building Self-Evolving Agent Skill Libraries from Heterogeneous Scientific Resources.
+              <a class="paper-link" href="https://arxiv.org/abs/2604.03964" aria-label="Read paper: SkillFoundry: Building Self-Evolving Agent Skill Libraries from Heterogeneous Scientific Resources">[paper]</a>
+            </p>
+            <p class="paper-authors">Shuaike Shen, Wenduo Cheng, Mingqian Ma, <strong>Alistair Turcan</strong>, Martin Jinye Zhang, Jian Ma.</p>
+            <p class="paper-meta"><em>COLM</em>, 2026.</p>
+          </li>
+
+          <!-- Paper 16: edit this entire <li> to update this entry. -->
+          <li class="publication" id="paper-16">
+            <p class="paper-title">Genetic and Cellular Architecture of Breast Cancer Risk in Multi-Ancestry Studies of 159,297 Cases and 212,102 Controls.
+              <a class="paper-link" href="https://doi.org/10.1101/2025.08.20.25334075" aria-label="Read paper: Genetic and Cellular Architecture of Breast Cancer Risk in Multi-Ancestry Studies of 159,297 Cases and 212,102 Controls">[paper]</a>
+            </p>
+            <p class="paper-authors">James L. Li, Maria Zanti, Jacob Williams, Om Jahagirdar, Guochong Jia, <strong>Alistair Turcan</strong>, …, Haoyu Zhang.</p>
+            <p class="paper-meta"><em>JNCI</em>, 2025.</p>
+          </li>
+
+          <!-- Paper 17: edit this entire <li> to update this entry. -->
+          <li class="publication" id="paper-17">
+            <p class="paper-title">Predicting Language Models&#x27; Success at Zero-Shot Probabilistic Prediction.
+              <a class="paper-link" href="https://aclanthology.org/2025.findings-emnlp.995/" aria-label="Read paper: Predicting Language Models&#x27; Success at Zero-Shot Probabilistic Prediction">[paper]</a>
+            </p>
+            <p class="paper-authors">Kevin Ren, Santiago Cortes-Gomez, Carlos Miguel Patiño, Ananya Joshi, Ruiqi Lyu, Jingjing Tang, <strong>Alistair Turcan</strong>, Khurram Yamin, Steven Wu, Bryan Wilder.</p>
+            <p class="paper-meta"><em>Findings of EMNLP</em>, 2025.</p>
+          </li>
+
+          <!-- Paper 18: edit this entire <li> to update this entry. -->
+          <li class="publication" id="paper-18">
+            <p class="paper-title">Deep-learning-based interpolation of longitudinal microbiome data powers biologically informative discovery.
+              <a class="paper-link" href="https://doi.org/10.1101/2025.02.17.638709" aria-label="Read paper: Deep-learning-based interpolation of longitudinal microbiome data powers biologically informative discovery">[paper]</a>
+            </p>
+            <p class="paper-authors">Yixiang Qu<sup>*</sup>, Ruiqi Lyu<sup>*</sup>, Duan Wang, Yifan Dai, <strong>Alistair Turcan</strong>, Shilin Yu, Jialiu Xie, Jeffrey Roach, Catherine Butler, Pew-Thian Yap, Hongtu Zhu, Stuart Dashper, Apoena Aguiar Ribeiro, Didong Li, Kimon Divaris, Di Wu.</p>
+            <p class="paper-meta"><em>bioRxiv</em>, 2025.</p>
+          </li>
+
+          <!-- Paper 19: edit this entire <li> to update this entry. -->
+          <li class="publication" id="paper-19">
+            <p class="paper-title">Towards Understanding the Effective Design of Automated Formative Feedback for Programming Assignments.
+              <a class="paper-link" href="https://doi.org/10.1080/08993408.2020.1860408" aria-label="Read paper: Towards Understanding the Effective Design of Automated Formative Feedback for Programming Assignments">[paper]</a>
+            </p>
+            <p class="paper-authors">Qiang Hao, David Smith, Lu Ding, Amy Ko, Camille Ottaway, Jack Wilson, Kai Arakawa, <strong>Alistair Turcan</strong>, Timothy Poehlman, Tyler Greer.</p>
+            <p class="paper-meta"><em>Computer Science Education</em>, 2022.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ==================== CV: KEEP THIS FILENAME IN SYNC =================== -->
+    <section id="cv" class="cv" aria-labelledby="cv-title">
+      <h2 id="cv-title">Curriculum vitae</h2>
+      <p>
+        <a href="Alistair_Turcan_CV.pdf" target="_blank" rel="noopener">View CV (PDF)</a>
+        <a class="download-link" href="Alistair_Turcan_CV.pdf" download>Download PDF ↓</a>
+      </p>
+    </section>
   </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <span>Alistair Turcan</span>
+      <a href="mailto:aturcan@cs.cmu.edu">aturcan@cs.cmu.edu</a>
+    </div>
+  </footer>
 </body>
 </html>
