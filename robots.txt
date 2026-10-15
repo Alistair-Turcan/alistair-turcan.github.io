@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://alistair-turcan.github.io/sitemap.xml
